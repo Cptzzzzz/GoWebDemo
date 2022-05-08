@@ -74,7 +74,11 @@ func (*PostDao) DeletePostById(id uint) error {
 	return err
 }
 
-func (*PostDao) UpdatePostById(post *Post) error {
+func (*PostDao) UpdatePost(post *Post) error {
 	err := db.Where("id = ?", post.Id).Updates(post).Error
 	return err
+}
+
+func (*PostDao) CheckPostById(id uint) error {
+	return db.Where("id = ?", id).First(&Post{}).Error
 }

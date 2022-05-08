@@ -29,7 +29,6 @@ func main() {
 			v2.GET("/get", controller.GetPost)
 		}
 	}
-
 	err := r.Run(":80")
 	if err != nil {
 		return

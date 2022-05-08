@@ -46,3 +46,26 @@ func (*TopicDao) CreateTopic(topic *Topic) error {
 	}
 	return nil
 }
+
+func (*TopicDao) QueryAllTopics() ([]*Topic, error) {
+	var res []*Topic
+	err := db.Find(&res).Error
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+func (*TopicDao) DeletePostById(id uint) error {
+	err := db.Where("id = ?", id).Delete(&Topic{}).Error
+	return err
+}
+
+func (*TopicDao) UpdateTopic(topic *Topic) error {
+	err := db.Where("id = ?", topic.Id).Updates(topic).Error
+	return err
+}
+
+func (*TopicDao) CheckTopicById(id uint) error {
+	return db.Where("id = ?", id).First(&Topic{}).Error
+}
